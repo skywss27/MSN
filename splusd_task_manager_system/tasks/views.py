@@ -22,7 +22,6 @@ def upload_excel(request):
             try:
                 # 处理 Excel 文件
                 excel_file = request.FILES['file']
-                print(excel_file.name)
                 # 使用 openpyxl 引擎读取 Excel 文件
                 # 读取第一个 sheet 的名称
                 df = pd.read_excel(excel_file, engine='openpyxl')
@@ -32,8 +31,8 @@ def upload_excel(request):
 
                 # 从第二行开始读取数据
                 for index, row in df.iterrows():
-                    if index == 0:  # 跳过第一行
-                        continue
+                    #if index == 0:  # 跳过第一行
+                    #    continue
         
                     project = row[0]  # 第一列
                     sub_project = row[1]  # 第二列
@@ -88,6 +87,38 @@ def success(request):
 
 def task_list(request):
     tasks = Task.objects.all()
+    iteration = request.GET.get('iteration')
+    project = request.GET.get('project')
+    sub_project = request.GET.get('sub_project')
+    team_member = request.GET.get('team_member')
+    alias = request.GET.get('alias')
+    task_name = request.GET.get('task_name')
+    status = request.GET.get('status')
+    is_reporting_to_me = request.GET.get('is_reporting_to_me')
+    
+    if iteration:
+        tasks = tasks.filter(iteration__icontains=iteration)
+    
+    if project:
+        tasks = tasks.filter(project__icontains=project)
+    
+    if sub_project:
+        tasks = tasks.filter(sub_project__icontains=sub_project)
+    
+    if team_member:
+        tasks = tasks.filter(team_member__icontains=team_member)
+    
+    if alias:
+        tasks = tasks.filter(alias__icontains=alias)
+    
+    if task_name:
+        tasks = tasks.filter(name__icontains=task_name)
+    
+    if status:
+        tasks = tasks.filter(status=status)
+    
+    if is_reporting_to_me:
+        tasks = tasks.filter(is_reporting_to_me=(is_reporting_to_me == 'true'))
     return render(request, 'tasks/task_list.html', {'tasks': tasks})
 
 

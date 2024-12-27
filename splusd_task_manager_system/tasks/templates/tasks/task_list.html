@@ -6,22 +6,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task List</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+         nav {
+            background-color:rgb(170, 57, 42);
+            padding: 10px;
+            text-align: left;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 15px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        form label {
+            margin-right: 5px;
+            font-weight: bold;
+        }
+        form input, form select, form button {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #45a049;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
         }
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 12px;
             text-align: left;
         }
         th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
             background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #4CAF50;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .pagination a {
+            margin: 0 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            color: #4CAF50;
+            border: 1px solid #ddd;
+        }
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+        .pagination .current {
+            padding: 8px 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: 1px solid #4CAF50;
         }
     </style>
 </head>
 <body>
     <h1>Task List</h1>
+     <nav>
+        <a href="{% url 'home' %}">Home</a>
+    </nav>
+     <form method="GET">
+        <div>
+            <label for="iteration">Iteration:</label>
+            <input type="text" name="iteration" id="iteration" placeholder="Iteration">
+        </div>
+        <div>
+            <label for="project">Project:</label>
+            <input type="text" name="project" id="project" placeholder="Project">
+        </div>
+        <div>
+            <label for="sub_project">Sub Project:</label>
+            <input type="text" name="sub_project" id="sub_project" placeholder="Sub Project">
+        </div>
+        <div>
+            <label for="team_member">Team Member:</label>
+            <input type="text" name="team_member" id="team_member" placeholder="Team Member">
+        </div>
+        <div>
+            <label for="alias">Alias:</label>
+            <input type="text" name="alias" id="alias" placeholder="Alias">
+        </div>
+        <div>
+            <label for="task_name">Task Name:</label>
+            <input type="text" name="task_name" id="task_name" placeholder="Task Name">
+        </div>
+        <div>
+            <label for="status">Status:</label>
+            <select name="status" id="status">
+                <option value="">All</option>
+                <option value="completed">完成</option>
+                <option value="in_progress">进行中</option>
+                <option value="delay">延迟</option>
+                <option value="plan">计划</option>
+            </select>
+        </div>
+        <div>
+            <label for="is_reporting_to_me">Is Reporting to Me:</label>
+            <select name="is_reporting_to_me" id="is_reporting_to_me">
+                <option value="">All</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Filter</button>
+        </div>
+    </form>
     <table>
         <thead>
             <tr>
@@ -49,14 +188,14 @@
                 <td>{{ task.name }}</td>
                 <td>{{ task.get_status_display }}</td>
                 <td>{{ task.is_reporting_to_me }}</td>
-                <td>
+                <td class="actions">
                     <a href="{% url 'task_edit' task.id %}">Edit</a>
                     <a href="{% url 'task_delete' task.id %}">Delete</a>
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="17">No tasks available.</td>
+                <td colspan="10">No tasks available.</td>
             </tr>
             {% endfor %}
         </tbody>
