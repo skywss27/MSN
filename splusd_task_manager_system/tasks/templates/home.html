@@ -1,0 +1,43 @@
+<!-- your_app_name/templates/home.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <style>
+        body {
+            background-image: url('static/tasks/images/background.jpeg');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .menu {
+            margin: 20px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>欢迎来到S+D任务管理系统</h1>
+    <div class="menu">
+        <a href="{% url 'task_list' %}">显示所有任务</a>
+        <a href="{% url 'task_add' %}">添加任务</a>
+        <a href="{% url 'upload_excel' %}">批量上传 Excel</a>
+    </div>
+</body>
+</html>

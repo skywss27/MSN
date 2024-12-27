@@ -1,0 +1,102 @@
+<!-- tasks/templates/tasks/task_add.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add Task</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="project">Project:</label>
+        {{ form.project }}
+
+        <label for="sub_project">Sub-project:</label>
+        {{ form.sub_project }}
+
+        <label for="team_member">Team Member:</label>
+        {{ form.team_member }}
+
+        <label for="alias">Alias:</label>
+        {{ form.alias }}
+
+        <label for="participating_projects">Participating Projects:</label>
+        {{ form.participating_projects }}
+
+        <label for="completed_tasks">Completed Tasks:</label>
+        {{ form.completed_tasks }}
+
+        <label for="basic_hours">基本工时:</label>
+        {{ form.basic_hours }}
+
+        <label for="actual_hours">实际工时:</label>
+        {{ form.actual_hours }}
+
+        <label for="ai_efficiency">Ai提效%:</label>
+        {{ form.ai_efficiency }}
+
+        <label for="still_ongoing_tasks">Still Ongoing Tasks:</label>
+        {{ form.still_ongoing_tasks }}
+
+        <label for="delay_issue_solution">Delay Issue & Resolve Solution:</label>
+        {{ form.delay_issue_solution }}
+
+        <label for="planning_tasks">Planning Tasks in Next 2 Weeks:</label>
+        {{ form.planning_tasks }}
+
+        <label for="cooperate_fte">Cooperate-FTEs:</label>
+        {{ form.cooperate_fte }}
+
+        <label for="pm">PM:</label>
+        {{ form.pm }}
+
+        <label for="reporting_to">Reporting to:</label>
+        {{ form.reporting_to }}
+
+        <button type="submit">Add Task</button>
+    </form>
+    <a class="back-link" href="{% url 'task_list' %}">Back to Task List</a>
+</body>
+</html>

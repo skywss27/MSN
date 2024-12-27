@@ -1,0 +1,65 @@
+<!-- your_app_name/templates/task_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Iteration</th>
+                <th>Project</th>
+                <th>Sub Project</th>
+                <th>Team Member</th>
+                <th>Alias</th>
+                <th>Task Name</th>
+                <th>Status</th>
+                <th>Is Reporting to Me</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.iteration }}</td>
+                <td>{{ task.project }}</td>
+                <td>{{ task.sub_project }}</td>
+                <td>{{ task.team_member }}</td>
+                <td>{{ task.alias }}</td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.get_status_display }}</td>
+                <td>{{ task.is_reporting_to_me }}</td>
+                <td>
+                    <a href="{% url 'task_edit' task.id %}">Edit</a>
+                    <a href="{% url 'task_delete' task.id %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="17">No tasks available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
